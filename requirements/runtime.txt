@@ -5,3 +5,6 @@ scipy
 shapely
 six
 terminaltables
+timm
+fairscale
+fvcore
