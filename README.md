@@ -1,3 +1,12 @@
+## For TUD CS4245
+
+* Tools and functions from [detectron2](https://github.com/facebookresearch/detectron2) are added to [`mmdet/`models/utils/detectron*.py](./mmdet/models/utils/).
+* [ViTMAE](./mmdet/models/backbones/vitmae.py) model with window propagation from detectron2.
+* [Simple FPN](./mmdet/models/necks/simplefpn.py) built upon detectron2 low-level functions.
+* [vitdet_demo.ipynb](./demo/vitdet_demo.ipynb) for using the components, including training new models.
+
+---
+
 <div align="center">
   <img src="resources/mmdet-logo.png" width="600"/>
   <div>&nbsp;</div>
