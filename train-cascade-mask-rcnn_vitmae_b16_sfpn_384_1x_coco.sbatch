@@ -5,7 +5,7 @@
 #SBATCH --time=168:00:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
-#SBATCH --mem=8192
+#SBATCH --mem=16384
 #SBATCH --gres=gpu:a40:1
 #SBATCH --mail-type=END
 
