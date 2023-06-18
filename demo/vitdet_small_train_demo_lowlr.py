@@ -68,7 +68,7 @@ convert_balloon_to_coco(
     './ballondatasets/balloon/val/annotation_coco.json',
     './ballondatasets/balloon/val/')
 
-cfg = Config.fromfile('../configs/cascade_rcnn/cascade-mask-rcnn_vitmae_b16_sfpn_6_768_200e_coco_lowlr.py')
+cfg = Config.fromfile('../configs/cascade_rcnn/cascade-mask-rcnn_vitmae_b16_sfpn_6_768_200e_coco.py')
 
 # Modify dataset classes and color
 cfg.metainfo = {
