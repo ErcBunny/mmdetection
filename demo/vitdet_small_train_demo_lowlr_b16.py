@@ -102,7 +102,7 @@ cfg.model.roi_head.bbox_head[0].num_classes = 1
 cfg.model.roi_head.bbox_head[1].num_classes = 1
 cfg.model.roi_head.bbox_head[2].num_classes = 1
 cfg.model.roi_head.mask_head.num_classes = 1
-cfg.default_hooks.checkpoint.interval = 20
+cfg.default_hooks.checkpoint.interval = 30
 cfg.optim_wrapper.optimizer.lr = 0.02 / 8
 
 
