@@ -68,7 +68,7 @@ convert_balloon_to_coco(
     './ballondatasets/balloon/val/annotation_coco.json',
     './ballondatasets/balloon/val/')
 
-cfg = Config.fromfile('../configs/cascade_rcnn/cascade-mask-rcnn_vitmae_b16_sfpn_6_768_200e_coco.py')
+cfg = Config.fromfile('../configs/cascade_rcnn/cascade-mask-rcnn_r101_fpn_200e_coco.py')
 
 # Modify dataset classes and color
 cfg.metainfo = {
@@ -106,7 +106,7 @@ cfg.default_hooks.checkpoint.interval = 20
 
 
 # Set up working dir to save files and logs.
-cfg.work_dir = './tutorial_exps/cascade-mask-rcnn_vitmae_b16_sfpn_6_768_200e_coco/'
+cfg.work_dir = './tutorial_exps/cascade-mask-rcnn_r101_fpn_200e_coco/'
 
 # build the runner from config
 runner = Runner.from_cfg(cfg)
