@@ -5,63 +5,13 @@
 * Tools and functions from [detectron2](https://github.com/facebookresearch/detectron2) are added to [mmdet/models/utils/detectron*.py](./mmdet/models/utils/).
 * [ViTMAE](./mmdet/models/backbones/vitmae.py) model with window propagation from detectron2.
 * [Simple FPN](./mmdet/models/necks/simplefpn.py) built upon detectron2 low-level functions.
-* [vitdet_demo.ipynb](./demo/vitdet_demo.ipynb) for using the components, including training new models.
-* Scripts to start training different model variants of ViTDet in the project root.
+* New configuration files for training in [`configs`](./configs/).
+* `slurm` scripts in [`tools/cs4245_train`](./tools/cs4245_train/).
+* Notebooks for testing and analysis in [`tools/cs4245_test`](./tools/cs4245_test/).
 
-## Overview & Goals
+## Blog & Details
 
-We aim to do object detection using cascade mask RCNN with a plain, non-hierarchical ViT backbone. We try to understand [ViTDet](https://arxiv.org/abs/2203.16527) in detail and reimplement it in another deep-learning toolbox framework [`mmdetection`](https://github.com/open-mmlab/mmdetection). We also scale further scale down the base model and analyze the results.
-
-ViTDet features a plain ViT with 2D backbone adaptation pre-trained using [MAE](https://arxiv.org/abs/2111.06377), and a simplified feature pyramid network and is based on the cascade mask RCNN object detection pipeline. The 2D backbone adaptation makes the backbone work with a matrix instead of a sequence of small image patches as seen in the original ViT.
-
-### Goals:
-
-1. Implement the model on top of `mmdetection`, usage of [`detectron2`](https://github.com/facebookresearch/detectron2) code is allowed.
-2. Reproduce the "ViTDet, ViT-B" line of Table 6 in the [paper](https://arxiv.org/abs/2203.16527).
-3. Scale down the backbone depth and dimension, and gather the results.
-4. Do analysis:
-   1. Visualize training logs as graphs;
-   2. Visualize encoder and FPN attention maps;
-   3. Answer questions:
-      1. Can scaled-down models still get good results?
-      2. How to estimate VRAM usage before training starts?
-      3. Since the smaller version of ViT is not officially pre-trained using MAE, is fine-tuning from partial MAE weights still helpful?
-
-## Storyline
-
-### Why Plain ViT for Object Detection?
-
-1. ViT works great in classification. Interesting to extend it to object detection.
-2. Some transformer-based object detectors include multi-scale and hierarchical designs. If a plain ViT can do the same, it is better to use the simpler one.
-3. It is simple and aligns with the "fewer inductive bias" philosophy. Also, no redesigning means no extra backbone pre-training.
-
-### How Is Object Detection Usually Done?
-
-1. The YOLO series: [YOLOv4](https://arxiv.org/abs/2004.10934), [YOLOv7](https://arxiv.org/abs/2207.02696), [YOLOv6-3.0](https://arxiv.org/abs/2301.05586).
-2. [Cascade RCNN](https://arxiv.org/abs/1712.00726) with various backbones: [CBNet](https://arxiv.org/abs/1909.03625v1), [Swin](https://arxiv.org/abs/2103.14030), [UViT](https://arxiv.org/abs/2112.09747).
-3. Transformer encoder-decoder: [DETR](https://github.com/facebookresearch/detr), [Co-DETR](https://arxiv.org/abs/2211.12860), [RT-DETR](https://arxiv.org/abs/2304.08069).
-
-### What's Missing?
-
-1. Models with CNN backbones (e.g. YOLO, CBNet) struggle to get a large receptive field and global data relations. This leads to poor spatial relationship or context understanding and reduced robustness to variations. To increase receptive field in CNN we have to use lots of Conv. layers which makes the model heavy.
-2. Hierarchical ViT (e.g. Swin) kills the philosophy of “fewer inductive biases” and doesn't pursue universal features. This is not “elegant” and makes things complicated.
-3. UViT uses plain ViT but redesigns the backbone so needs pre-training. DETRs use plain ViT but require additional training tricks for good small object detection. They all result in extra effort before fine-tuning.
-
-### The Proposed Solution: [ViTDet](https://arxiv.org/abs/2203.16527)
-
-1. It picks up global features easily thanks to the attention mechanism. So it performs better on big objects and global information understanding.
-2. It is simple and has fewer inductive biases as it removes multi-scale and hierarchical designs, which make the approach elegant and easy to implement.
-3. It doesn't require additional pre-training as the plain backbone is almost the same as the original ViT. And the feature pyramid network (FPN) helps with small object detection. This makes fine-tuning and transfer learning easier.
-
-### Experimental Questions
-
-1. How does ViTDet pick up global long distance relationship? We visualize the attention map and do qualitative analysis.
-2. Is the plain backbone good with all the simplicities and fewer inductive biases? We try to reproduce Table 6 on [COCO](https://cocodataset.org/#home).
-3. How FPN helps detecting small objects? Again we try to visualize the outputs.
-4. About scaling-down the model:
-   1. Can scaled-down models still get good results? Which one is more important, width or depth?
-   2. Since the smaller version of ViT is not officially pre-trained using MAE, is fine-tuning from partial MAE weights still helpful?
-   3. How to estimate VRAM usage before training starts?
+https://ryan-yql.notion.site/Object-Detection-Segmentation-Using-Plain-Vision-Transformer-Cascade-Mask-RCNN-8db5982c75d148fdb60edcc63bd72926?pvs=4
 
 ---
 
